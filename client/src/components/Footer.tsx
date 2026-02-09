@@ -11,15 +11,6 @@ export default function Footer() {
 
   const footerLinks = [
     {
-      title: 'Plataformas',
-      links: [
-        { label: 'Upwork', href: 'https://www.upwork.com' },
-        { label: 'Fiverr', href: 'https://www.fiverr.com' },
-        { label: 'Workana', href: 'https://www.workana.com' },
-        { label: 'Toptal', href: 'https://www.toptal.com' },
-      ],
-    },
-    {
       title: 'Recursos',
       links: [
         { label: 'Plano de Ação', href: '#action-plan' },
@@ -33,8 +24,8 @@ export default function Footer() {
       links: [
         { label: 'Política de Privacidade', href: '#privacy' },
         { label: 'Termos de Uso', href: '#terms' },
+        { label: 'Devolução e Reembolso', href: '#refund' },
         { label: 'Contato', href: '#contact' },
-        { label: 'Blog', href: '#blog' },
       ],
     },
   ];
@@ -47,22 +38,16 @@ export default function Footer() {
       color: 'hover:text-blue-400',
     },
     {
-      name: 'Twitter',
-      icon: 'x',
-      href: 'https://twitter.com',
-      color: 'hover:text-gray-300',
-    },
-    {
       name: 'Instagram',
       icon: 'ig',
       href: 'https://instagram.com',
       color: 'hover:text-pink-400',
     },
     {
-      name: 'YouTube',
-      icon: 'yt',
-      href: 'https://youtube.com',
-      color: 'hover:text-red-400',
+      name: 'WhatsApp',
+      icon: 'wa',
+      href: 'https://wa.me',
+      color: 'hover:text-green-400',
     },
   ];
 
@@ -71,7 +56,7 @@ export default function Footer() {
       {/* Main Footer */}
       <div className="max-w-6xl mx-auto px-4 py-16">
         {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="mb-4">
@@ -121,10 +106,10 @@ export default function Footer() {
             <div className="flex items-center gap-2 justify-center md:justify-start">
               <Mail className="w-4 h-4 text-purple-400" />
               <a
-                href="mailto:contato@freelancerpremium.com"
+                href="mailto:agtramposof@gmail.com"
                 className="text-gray-400 font-body text-sm hover:text-purple-400 transition-colors"
               >
-                contato@freelancerpremium.com
+                agtramposof@gmail.com
               </a>
             </div>
             <div className="flex items-center gap-2 justify-center md:justify-start">
