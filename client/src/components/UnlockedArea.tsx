@@ -5,6 +5,7 @@ import FreelancerSites from './FreelancerSites';
 import Strategies from './Strategies';
 import ActionPlan from './ActionPlan';
 import Testimonials from './Testimonials';
+import FAQ from './FAQ';
 
 interface UnlockedAreaProps {
   email: string;
@@ -107,6 +108,11 @@ export default function UnlockedArea({ email }: UnlockedAreaProps) {
       {/* Testimonials Section */}
       <div className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
         <Testimonials />
+      </div>
+
+      {/* FAQ Section */}
+      <div className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+        <FAQ />
       </div>
     </div>
   );
