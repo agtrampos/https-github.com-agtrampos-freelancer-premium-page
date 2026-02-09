@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Globe, Zap, CheckCircle2, TrendingUp } from 'lucide-react';
+import { Globe, Zap, TrendingUp, BookOpen, Info, Mail } from 'lucide-react';
 import FreelancerSites from './FreelancerSites';
 import Strategies from './Strategies';
 import ActionPlan from './ActionPlan';
 import Testimonials from './Testimonials';
 import FAQ from './FAQ';
+import PrivacyPolicy from './PrivacyPolicy';
+import TermsOfUse from './TermsOfUse';
+import RefundPolicy from './RefundPolicy';
+import ContactPage from './ContactPage';
 import ShareButtons from './ShareButtons';
 
 interface UnlockedAreaProps {
@@ -18,11 +22,14 @@ interface UnlockedAreaProps {
  * 
  * Seção 2: Área de conteúdo premium liberado
  * - Título de parabéns com animação
- * - Abas: Sites de Freelancer e Estratégias
- * - Plano de ação para 30 dias
+ * - Abas principais: Recursos e Informações
+ * - Recursos: Sites, Estratégias, Plano de Ação, Depoimentos, FAQ
+ * - Informações: Política de Privacidade, Termos de Uso, Devolução e Reembolso, Contato
  */
 export default function UnlockedArea({ email }: UnlockedAreaProps) {
-  const [activeTab, setActiveTab] = useState('sites');
+  const [activeMainTab, setActiveMainTab] = useState('recursos');
+  const [activeResourceTab, setActiveResourceTab] = useState('sites');
+  const [activeInfoTab, setActiveInfoTab] = useState('privacy');
   const [showConfetti, setShowConfetti] = useState(true);
 
   useEffect(() => {
@@ -71,49 +78,142 @@ export default function UnlockedArea({ email }: UnlockedAreaProps) {
         </div>
       </div>
 
-      {/* Tabs Section */}
+      {/* Main Tabs Section */}
       <div className="max-w-6xl mx-auto mb-16 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs value={activeMainTab} onValueChange={setActiveMainTab} className="w-full">
+          {/* Main Tab List */}
           <TabsList className="grid w-full grid-cols-2 bg-card border border-border mb-8">
             <TabsTrigger 
-              value="sites"
+              value="recursos"
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white"
             >
-              <Globe className="w-4 h-4 mr-2" />
-              Sites de Freelancer
+              <BookOpen className="w-4 h-4 mr-2" />
+              Recursos
             </TabsTrigger>
             <TabsTrigger 
-              value="strategies"
+              value="informacoes"
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white"
             >
-              <TrendingUp className="w-4 h-4 mr-2" />
-              Estratégias
+              <Info className="w-4 h-4 mr-2" />
+              Informações
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="sites" className="animate-fade-in">
-            <FreelancerSites />
+          {/* RECURSOS TAB */}
+          <TabsContent value="recursos" className="animate-fade-in">
+            <Tabs value={activeResourceTab} onValueChange={setActiveResourceTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-5 bg-card border border-border mb-8 overflow-x-auto">
+                <TabsTrigger 
+                  value="sites"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white text-xs md:text-sm"
+                >
+                  <Globe className="w-4 h-4 mr-1 md:mr-2" />
+                  <span className="hidden md:inline">Sites</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="estrategias"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white text-xs md:text-sm"
+                >
+                  <TrendingUp className="w-4 h-4 mr-1 md:mr-2" />
+                  <span className="hidden md:inline">Estratégias</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="plano"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white text-xs md:text-sm"
+                >
+                  <span className="hidden md:inline">Plano</span>
+                  <span className="md:hidden">📋</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="depoimentos"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white text-xs md:text-sm"
+                >
+                  <span className="hidden md:inline">Depoimentos</span>
+                  <span className="md:hidden">⭐</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="faq"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white text-xs md:text-sm"
+                >
+                  <span className="hidden md:inline">FAQ</span>
+                  <span className="md:hidden">❓</span>
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="sites" className="animate-fade-in">
+                <FreelancerSites />
+              </TabsContent>
+
+              <TabsContent value="estrategias" className="animate-fade-in">
+                <Strategies />
+              </TabsContent>
+
+              <TabsContent value="plano" className="animate-fade-in">
+                <ActionPlan />
+              </TabsContent>
+
+              <TabsContent value="depoimentos" className="animate-fade-in">
+                <Testimonials />
+              </TabsContent>
+
+              <TabsContent value="faq" className="animate-fade-in">
+                <FAQ />
+              </TabsContent>
+            </Tabs>
           </TabsContent>
 
-          <TabsContent value="strategies" className="animate-fade-in">
-            <Strategies />
+          {/* INFORMAÇÕES TAB */}
+          <TabsContent value="informacoes" className="animate-fade-in">
+            <Tabs value={activeInfoTab} onValueChange={setActiveInfoTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-4 bg-card border border-border mb-8 overflow-x-auto">
+                <TabsTrigger 
+                  value="privacy"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white text-xs md:text-sm"
+                >
+                  <span className="hidden md:inline">Privacidade</span>
+                  <span className="md:hidden">🔒</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="terms"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white text-xs md:text-sm"
+                >
+                  <span className="hidden md:inline">Termos</span>
+                  <span className="md:hidden">📄</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="refund"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white text-xs md:text-sm"
+                >
+                  <span className="hidden md:inline">Reembolso</span>
+                  <span className="md:hidden">💰</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="contact"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white text-xs md:text-sm"
+                >
+                  <Mail className="w-4 h-4 mr-1 md:mr-2" />
+                  <span className="hidden md:inline">Contato</span>
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="privacy" className="animate-fade-in">
+                <PrivacyPolicy />
+              </TabsContent>
+
+              <TabsContent value="terms" className="animate-fade-in">
+                <TermsOfUse />
+              </TabsContent>
+
+              <TabsContent value="refund" className="animate-fade-in">
+                <RefundPolicy />
+              </TabsContent>
+
+              <TabsContent value="contact" className="animate-fade-in">
+                <ContactPage />
+              </TabsContent>
+            </Tabs>
           </TabsContent>
         </Tabs>
-      </div>
-
-      {/* Action Plan */}
-      <div className="max-w-6xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-        <ActionPlan />
-      </div>
-
-      {/* Testimonials Section */}
-      <div className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-        <Testimonials />
-      </div>
-
-      {/* FAQ Section */}
-      <div className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-        <FAQ />
       </div>
 
       {/* Share Section */}

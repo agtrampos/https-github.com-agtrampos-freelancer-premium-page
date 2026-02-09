@@ -23,22 +23,6 @@ interface FreelancerSite {
  */
 const sites: FreelancerSite[] = [
   {
-    id: 'upwork',
-    name: 'Upwork',
-    tags: ['Internacional', 'Avançado'],
-    description: 'Maior plataforma de freelancer do mundo com projetos em todas as áreas.',
-    earnings: 'R$ 2.000 - R$ 15.000+/mês',
-    url: 'https://www.upwork.com',
-  },
-  {
-    id: 'fiverr',
-    name: 'Fiverr',
-    tags: ['Internacional', 'Iniciante'],
-    description: 'Plataforma baseada em serviços (gigs) com modelo de preços fixos.',
-    earnings: 'R$ 500 - R$ 5.000+/mês',
-    url: 'https://www.fiverr.com',
-  },
-  {
     id: '99freelas',
     name: '99Freelas',
     tags: ['Nacional', 'Iniciante'],
@@ -47,28 +31,12 @@ const sites: FreelancerSite[] = [
     url: 'https://www.99freelas.com.br',
   },
   {
-    id: 'workana',
-    name: 'Workana',
-    tags: ['Internacional', 'Iniciante'],
-    description: 'Plataforma latino-americana com muitos projetos em português.',
-    earnings: 'R$ 500 - R$ 5.000+/mês',
-    url: 'https://www.workana.com',
-  },
-  {
     id: 'freelancer',
     name: 'Freelancer',
     tags: ['Internacional', 'Intermediário'],
     description: 'Plataforma global com leilões de projetos e sistema de reputação.',
     earnings: 'R$ 1.000 - R$ 8.000+/mês',
     url: 'https://www.freelancer.com',
-  },
-  {
-    id: 'toptal',
-    name: 'Toptal',
-    tags: ['Internacional', 'Avançado'],
-    description: 'Plataforma premium para profissionais experientes e bem remunerados.',
-    earnings: 'R$ 5.000 - R$ 30.000+/mês',
-    url: 'https://www.toptal.com',
   },
   {
     id: 'guru',
