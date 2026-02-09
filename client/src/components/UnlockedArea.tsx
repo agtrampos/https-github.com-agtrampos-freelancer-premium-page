@@ -4,6 +4,7 @@ import { Globe, Zap, CheckCircle2, TrendingUp } from 'lucide-react';
 import FreelancerSites from './FreelancerSites';
 import Strategies from './Strategies';
 import ActionPlan from './ActionPlan';
+import Testimonials from './Testimonials';
 
 interface UnlockedAreaProps {
   email: string;
@@ -101,6 +102,11 @@ export default function UnlockedArea({ email }: UnlockedAreaProps) {
       {/* Action Plan */}
       <div className="max-w-6xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
         <ActionPlan />
+      </div>
+
+      {/* Testimonials Section */}
+      <div className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+        <Testimonials />
       </div>
     </div>
   );
