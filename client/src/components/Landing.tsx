@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Mail, CheckCircle2, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ShareButtons from './ShareButtons';
 
 interface LandingProps {
   onUnlock: (email: string) => void;
@@ -137,6 +138,14 @@ export default function Landing({ onUnlock }: LandingProps) {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Share Section */}
+        <div className="text-center mt-12 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <p className="text-gray-400 font-body text-sm mb-4">
+            Gostou? Compartilhe com seus amigos!
+          </p>
+          <ShareButtons showLabel={true} variant="horizontal" />
         </div>
       </div>
     </div>

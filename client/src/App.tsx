@@ -4,17 +4,29 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 
 
 function Router() {
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
+      <Route path="/" component={Home} />
+      <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
+  );
+}
+
+function AppLayout() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      <main className="flex-1">
+        <Router />
+      </main>
+      <Footer />
+    </div>
   );
 }
 
@@ -32,7 +44,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
-          <Router />
+          <AppLayout />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

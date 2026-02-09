@@ -6,6 +6,7 @@ import Strategies from './Strategies';
 import ActionPlan from './ActionPlan';
 import Testimonials from './Testimonials';
 import FAQ from './FAQ';
+import ShareButtons from './ShareButtons';
 
 interface UnlockedAreaProps {
   email: string;
@@ -113,6 +114,19 @@ export default function UnlockedArea({ email }: UnlockedAreaProps) {
       {/* FAQ Section */}
       <div className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
         <FAQ />
+      </div>
+
+      {/* Share Section */}
+      <div className="max-w-6xl mx-auto px-4 py-16 text-center animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
+        <h3 className="font-headline text-2xl font-semibold mb-4 text-white">
+          Compartilhe este conteudo com seus amigos!
+        </h3>
+        <p className="text-gray-400 font-body mb-6">
+          Ajude outros freelancers a descobrir as melhores oportunidades em 2026.
+        </p>
+        <div className="flex justify-center">
+          <ShareButtons showLabel={true} variant="horizontal" />
+        </div>
       </div>
     </div>
   );
