@@ -33,7 +33,7 @@ jobs:
       - name: Build
         env:
           GITHUB_PAGES: "true"
-        run: pnpm run build
+        run: pnpm run build:client
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
