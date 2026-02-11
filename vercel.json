@@ -1,15 +1,8 @@
 {
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "installCommand": "pnpm i --no-frozen-lockfile",
-        "buildCommand": "pnpm run build",
-        "outputDirectory": "dist/public"
-      }
-    }
-  ],
+  "framework": "other",
+  "installCommand": "pnpm i --no-frozen-lockfile",
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "dist/public",
   "env": {
     "ENABLE_EXPERIMENTAL_COREPACK": "1"
   },
