@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Mail, CheckCircle2, Lock, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ShareButtons from './ShareButtons';
@@ -63,15 +63,45 @@ export default function Landing({ onUnlock }: LandingProps) {
     }
 
     setIsLoading(true);
-    // Simular delay de processamento
-    setTimeout(() => {
-      setIsLoading(false);
-      if (onUnlock) {
-        onUnlock(email);
+    (async () => {
+      try {
+        const v = await fetch('/api/validate-access', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const vData = await v.json();
+        if (v.ok && vData?.success) {
+          window.location.href = '/flm/acesso';
+          return;
+        }
+        const c = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const cData = await c.json();
+        if (!c.ok || !cData?.checkout_url) {
+          setError('Não foi possível gerar o checkout. Tente novamente.');
+          return;
+        }
+        window.location.href = cData.checkout_url;
+      } catch {
+        setError('Falha de rede. Tente novamente.');
+      } finally {
+        setIsLoading(false);
       }
-    }, 500);
+    })();
   };
 
+  useEffect(() => {
+    const saved = localStorage.getItem('fp_email');
+    if (saved) setEmail(saved);
+  }, []);
+
+  useEffect(() => {
+    if (email) localStorage.setItem('fp_email', email);
+  }, [email]);
   return (
     <div className="min-h-screen gradient-dark-purple flex flex-col justify-center items-center px-4 py-12">
       {/* Background decorative elements */}
