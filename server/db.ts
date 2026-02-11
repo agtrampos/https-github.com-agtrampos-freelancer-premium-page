@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, subscriptions, payments, emailLeads } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -90,3 +90,119 @@ export async function getUserByOpenId(openId: string) {
 }
 
 // TODO: add feature queries here as your schema grows.
+
+/**
+ * Subscription queries
+ */
+export async function createSubscription(subscription: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(subscriptions).values(subscription);
+  return result;
+}
+
+export async function getActiveSubscription(userId: number) {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const result = await db
+    .select()
+    .from(subscriptions)
+    .where(and(eq(subscriptions.userId, userId), eq(subscriptions.status, 'active')))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function updateSubscriptionStatus(subscriptionId: number, status: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  await db
+    .update(subscriptions)
+    .set({ status: status as any, updatedAt: new Date() })
+    .where(eq(subscriptions.id, subscriptionId));
+}
+
+/**
+ * Payment queries
+ */
+export async function createPayment(payment: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(payments).values(payment);
+  return result;
+}
+
+export async function updatePaymentStatus(paymentId: number, status: string, infinitepayId?: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const updateData: Record<string, any> = { status, updatedAt: new Date() };
+  if (infinitepayId) updateData.infinitepayId = infinitepayId;
+  
+  await db
+    .update(payments)
+    .set(updateData)
+    .where(eq(payments.id, paymentId));
+}
+
+export async function getPaymentByInfinitepayId(infinitepayId: string) {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const result = await db
+    .select()
+    .from(payments)
+    .where(eq(payments.infinitepayId, infinitepayId))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getUserPayments(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return db.select().from(payments).where(eq(payments.userId, userId));
+}
+
+/**
+ * Email Lead queries
+ */
+export async function createOrUpdateEmailLead(lead: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const existing = await db
+    .select()
+    .from(emailLeads)
+    .where(eq(emailLeads.email, lead.email))
+    .limit(1);
+  
+  if (existing.length > 0) {
+    await db
+      .update(emailLeads)
+      .set({ ...lead, updatedAt: new Date() })
+      .where(eq(emailLeads.email, lead.email));
+    return existing[0];
+  } else {
+    await db.insert(emailLeads).values(lead);
+    return lead;
+  }
+}
+
+export async function getEmailLead(email: string) {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const result = await db
+    .select()
+    .from(emailLeads)
+    .where(eq(emailLeads.email, email))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
