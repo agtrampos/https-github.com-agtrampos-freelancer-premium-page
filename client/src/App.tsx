@@ -18,7 +18,6 @@ import Privacidade from "./pages/Privacidade";
 import Termos from "./pages/Termos";
 import Reembolso from "./pages/Reembolso";
 import Contato from "./pages/Contato";
-import { Analytics } from "@vercel/analytics/react";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -70,7 +69,6 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <AppLayout />
-          <Analytics />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
