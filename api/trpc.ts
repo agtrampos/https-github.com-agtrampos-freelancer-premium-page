@@ -6,6 +6,10 @@ import { createContext } from "../server/_core/context";
 
 const app = express();
 app.use(express.json({ limit: "5mb" }));
+// Health check for GET requests to prevent function crash
+app.get("/", (_req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 app.use(
   "/",
   createExpressMiddleware({
