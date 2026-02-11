@@ -13,19 +13,19 @@ export default function Footer() {
     {
       title: 'Recursos',
       links: [
-        { label: 'Plano de Ação', href: '#action-plan' },
-        { label: 'Estratégias', href: '#strategies' },
-        { label: 'Depoimentos', href: '#testimonials' },
-        { label: 'FAQ', href: '#faq' },
+        { label: 'Plano de Ação', href: '/plano-de-acao' },
+        { label: 'Estratégias', href: '/estrategias' },
+        { label: 'Depoimentos', href: '/depoimentos' },
+        { label: 'FAQ', href: '/faq' },
       ],
     },
     {
       title: 'Informações',
       links: [
-        { label: 'Política de Privacidade', href: '#privacy' },
-        { label: 'Termos de Uso', href: '#terms' },
-        { label: 'Devolução e Reembolso', href: '#refund' },
-        { label: 'Contato', href: '#contact' },
+        { label: 'Política de Privacidade', href: '/privacidade' },
+        { label: 'Termos de Uso', href: '/termos' },
+        { label: 'Devolução e Reembolso', href: '/reembolso' },
+        { label: 'Contato', href: '/contato' },
       ],
     },
   ];

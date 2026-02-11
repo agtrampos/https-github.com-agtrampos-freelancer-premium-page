@@ -8,12 +8,33 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Checkout from "./pages/Checkout";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import Recursos from "./pages/Recursos";
+import PlanoAcao from "./pages/PlanoAcao";
+import Estrategias from "./pages/Estrategias";
+import Depoimentos from "./pages/Depoimentos";
+import FaqPage from "./pages/FaqPage";
+import Informacoes from "./pages/Informacoes";
+import Privacidade from "./pages/Privacidade";
+import Termos from "./pages/Termos";
+import Reembolso from "./pages/Reembolso";
+import Contato from "./pages/Contato";
+import { Analytics } from "@vercel/analytics/react";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/recursos" component={Recursos} />
+      <Route path="/plano-de-acao" component={PlanoAcao} />
+      <Route path="/estrategias" component={Estrategias} />
+      <Route path="/depoimentos" component={Depoimentos} />
+      <Route path="/faq" component={FaqPage} />
+      <Route path="/informacoes" component={Informacoes} />
+      <Route path="/privacidade" component={Privacidade} />
+      <Route path="/termos" component={Termos} />
+      <Route path="/reembolso" component={Reembolso} />
+      <Route path="/contato" component={Contato} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/payment-success" component={PaymentSuccess} />
       <Route path="/404" component={NotFound} />
@@ -49,6 +70,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <AppLayout />
+          <Analytics />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
