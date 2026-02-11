@@ -152,9 +152,17 @@ function vitePluginManusDebugCollector(): Plugin {
 export default defineConfig(async ({ mode }) => {
   const plugins = [react(), tailwindcss(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
   if (mode === "development") {
-    const mod = await import("@builder.io/vite-plugin-jsx-loc");
-    const pluginFactory = (mod as any).jsxLocPlugin ?? (mod as any).default ?? (mod as any);
-    plugins.push(pluginFactory());
+    const name = process.env.VITE_JSX_LOC_PLUGIN;
+    if (name) {
+      try {
+        const mod = await import(name);
+        const pluginFactory =
+          (mod as any).jsxLocPlugin ?? (mod as any).default ?? (mod as any);
+        plugins.push(pluginFactory());
+      } catch {
+        // silently skip if optional plugin is not installed
+      }
+    }
   }
   return {
     plugins,
