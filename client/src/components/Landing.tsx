@@ -109,28 +109,19 @@ export default function Landing({ onUnlock }: LandingProps) {
     setIsLoading(true);
     (async () => {
       try {
-        const v = await fetch('/api/validate-access', {
+        const resp = await fetch('/api/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
         });
-        const vData = await v.json();
-        if (v.ok && vData?.success) {
-          window.location.href = '/flm/acesso';
+        const data = await resp.json();
+        console.log('checkout response:', data);
+        const checkoutUrl = data?.checkout_url || data?.url || null;
+        if (!resp.ok || !checkoutUrl) {
+          setError(data?.message || 'Não foi possível gerar o checkout. Tente novamente.');
           return;
         }
-        const c = await fetch('/api/checkout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
-        });
-        const cData = await c.json();
-        console.log('Resposta checkout:', cData);
-        if (!c.ok || !cData?.checkout_url) {
-          setError('Não foi possível gerar o checkout. Tente novamente.');
-          return;
-        }
-        window.location.href = cData.checkout_url;
+        window.location.assign(checkoutUrl);
       } catch {
         setError('Falha de rede. Tente novamente.');
       } finally {
@@ -177,7 +168,7 @@ export default function Landing({ onUnlock }: LandingProps) {
         </div>
 
         {/* Email Capture Form */}
-        <form onSubmit={handleSubmit} className="mb-12 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <form onSubmit={(e) => { e.preventDefault(); handlePrimaryAction(); }} className="mb-12 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           <div className="flex flex-col sm:flex-row gap-3 mb-4">
             <div className="flex-1 relative">
               <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
