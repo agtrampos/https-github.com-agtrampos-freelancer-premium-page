@@ -1,5 +1,4 @@
 {
-  "framework": "other",
   "installCommand": "pnpm i --no-frozen-lockfile",
   "buildCommand": "pnpm run build",
   "outputDirectory": "dist/public",
