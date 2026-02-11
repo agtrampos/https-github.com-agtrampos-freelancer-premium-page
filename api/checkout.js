@@ -10,6 +10,9 @@ export default async function handler(req, res) {
     if (!email) {
       return res.status(400).json({ success: false, message: "Email obrigatório" });
     }
+    if (!process.env.INFINITEPAY_API_KEY) {
+      return res.status(500).json({ success: false, message: "Configuração ausente: INFINITEPAY_API_KEY" });
+    }
     const order_nsu = crypto.randomUUID();
     await redis.set(`order:${order_nsu}`, {
       email,
@@ -37,10 +40,32 @@ export default async function handler(req, res) {
         customer: { email },
       }),
     });
-    const data = await response.json();
+    const text = await response.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = { raw: text };
+    }
+    if (!response.ok) {
+      return res.status(400).json({
+        success: false,
+        message: "Falha ao gerar checkout",
+        code: response.status,
+        details: data,
+      });
+    }
+    const url = data?.url ?? null;
+    if (!url) {
+      return res.status(400).json({
+        success: false,
+        message: "checkout_url ausente na resposta",
+        details: data,
+      });
+    }
     return res.status(200).json({
       orderId: order_nsu,
-      checkout_url: data?.url ?? null,
+      checkout_url: url,
     });
   } catch {
     return res.status(400).json({ success: false, message: "Erro interno" });

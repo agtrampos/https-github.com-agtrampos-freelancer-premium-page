@@ -81,6 +81,51 @@ export default function Landing({ onUnlock }: LandingProps) {
           body: JSON.stringify({ email }),
         });
         const cData = await c.json();
+        console.log('Resposta checkout:', cData);
+        if (!c.ok || !cData?.checkout_url) {
+          setError(cData?.message || 'Não foi possível gerar o checkout. Tente novamente.');
+          return;
+        }
+        window.location.href = cData.checkout_url;
+      } catch {
+        setError('Falha de rede. Tente novamente.');
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  };
+
+  const handlePrimaryAction = () => {
+    setTouched(true);
+    setError('');
+    if (!email.trim()) {
+      setError('Por favor, digite seu email');
+      return;
+    }
+    if (!isEmailValid) {
+      setError('Por favor, digite um email válido (ex: seu@email.com)');
+      return;
+    }
+    setIsLoading(true);
+    (async () => {
+      try {
+        const v = await fetch('/api/validate-access', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const vData = await v.json();
+        if (v.ok && vData?.success) {
+          window.location.href = '/flm/acesso';
+          return;
+        }
+        const c = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const cData = await c.json();
+        console.log('Resposta checkout:', cData);
         if (!c.ok || !cData?.checkout_url) {
           setError('Não foi possível gerar o checkout. Tente novamente.');
           return;
@@ -93,7 +138,6 @@ export default function Landing({ onUnlock }: LandingProps) {
       }
     })();
   };
-
   useEffect(() => {
     const saved = localStorage.getItem('fp_email');
     if (saved) setEmail(saved);
@@ -155,7 +199,8 @@ export default function Landing({ onUnlock }: LandingProps) {
               )}
             </div>
             <Button
-              type="submit"
+              type="button"
+              onClick={handlePrimaryAction}
               disabled={isLoading || (touched && !isEmailValid && email.length > 0)}
               className="btn-gradient px-8 py-3 rounded-lg font-semibold whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
             >
