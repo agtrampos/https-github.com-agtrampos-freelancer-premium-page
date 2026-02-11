@@ -1,4 +1,4 @@
-const store = globalThis.__FLM_STORE || (globalThis.__FLM_STORE = new Map());
+import { redis } from "../lib/redis.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -9,19 +9,19 @@ export default async function handler(req, res) {
     if (!email) {
       return res.status(400).json({ success: false, message: "Email obrigatório" });
     }
-    const order = Array.from(store.values()).find((o) => o?.email === email);
-    if (!order) {
-      return res.status(400).json({ success: false, message: "Assinatura não encontrada" });
+    const subscription = await redis.get(`subscription:${email}`);
+    if (!subscription) {
+      return res.status(400).json({
+        success: false,
+        message: "Assinatura não encontrada",
+      });
     }
     const now = new Date();
-    const due = new Date(order.subscription_next_due);
-    if (order.status === "ACTIVE" && due >= now) {
+    const due = new Date(subscription.subscription_next_due);
+    if (subscription.status === "ACTIVE" && due >= now) {
       return res.status(200).json({ success: true, message: null });
     }
-    return res.status(400).json({
-      success: false,
-      message: "Assinatura vencida ou inativa",
-    });
+    return res.status(400).json({ success: false, message: "Assinatura vencida" });
   } catch {
     return res.status(400).json({ success: false, message: "Erro interno" });
   }
