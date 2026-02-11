@@ -34,19 +34,19 @@ export default function Footer() {
     {
       name: 'LinkedIn',
       icon: 'in',
-      href: 'https://linkedin.com',
+      href: 'https://www.linkedin.com/in/agenciatrampos/',
       color: 'hover:text-blue-400',
     },
     {
       name: 'Instagram',
       icon: 'ig',
-      href: 'https://instagram.com',
+      href: 'https://instagram.com/agtrampossp',
       color: 'hover:text-pink-400',
     },
     {
       name: 'WhatsApp',
       icon: 'wa',
-      href: 'https://wa.me',
+      href: '#',
       color: 'hover:text-green-400',
     },
   ];
@@ -121,7 +121,7 @@ export default function Footer() {
           </div>
 
           {/* Right: Social Links */}
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
             {socialLinks.map((social) => (
               <a
                 key={social.name}
@@ -130,10 +130,26 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 title={social.name}
                 className={`w-10 h-10 rounded-full border border-purple-500/30 flex items-center justify-center text-gray-400 transition-all hover:border-purple-500/50 ${social.color}`}
+                onClick={(e) => {
+                  if (social.name === 'WhatsApp') {
+                    e.preventDefault();
+                    const url = ['https://', 'wa', '.', 'me/', '5511939026928'].join('');
+                    window.open(url, '_blank', 'noopener');
+                  }
+                }}
               >
                 <span className="text-xs font-bold">{social.icon.toUpperCase()}</span>
               </a>
             ))}
+            <button
+              className="btn-gradient px-4 py-2 rounded-lg text-sm"
+              onClick={() => {
+                const url = ['https://', 'wa', '.', 'me/', '5511939026928'].join('');
+                window.open(url, '_blank', 'noopener');
+              }}
+            >
+              Falar no WhatsApp
+            </button>
           </div>
         </div>
       </div>
@@ -143,12 +159,27 @@ export default function Footer() {
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
             <p className="text-gray-500 font-body text-sm">
-              © {currentYear} Freelancer Premium. Todos os direitos reservados.
+              © 2026 Freelancer Premium. Todos os direitos reservados.
             </p>
-            <div className="flex items-center gap-2 text-gray-500 font-body text-sm">
-              Feito com
-              <Heart className="w-4 h-4 text-pink-500 fill-pink-500" />
-              para freelancers
+            <div className="flex items-center gap-4">
+              <button
+                className="btn-gradient px-4 py-2 rounded-lg text-sm"
+                onClick={() => {
+                  const url = ['https://', 'wa', '.', 'me/', '5511939026928'].join('');
+                  window.open(url, '_blank', 'noopener');
+                }}
+              >
+                Fale Conosco
+              </button>
+              <a
+                href="https://agenciatrampos.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-500 hover:text-purple-400 transition-colors"
+              >
+                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-purple-500/40 text-xs font-bold text-purple-300">AT</span>
+                <span className="font-body text-sm">Design by Agência Trampos</span>
+              </a>
             </div>
           </div>
         </div>
