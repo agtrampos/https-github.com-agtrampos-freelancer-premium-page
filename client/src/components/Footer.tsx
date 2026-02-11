@@ -141,15 +141,6 @@ export default function Footer() {
                 <span className="text-xs font-bold">{social.icon.toUpperCase()}</span>
               </a>
             ))}
-            <button
-              className="btn-gradient px-4 py-2 rounded-lg text-sm"
-              onClick={() => {
-                const url = ['https://', 'wa', '.', 'me/', '5511939026928'].join('');
-                window.open(url, '_blank', 'noopener');
-              }}
-            >
-              Falar no WhatsApp
-            </button>
           </div>
         </div>
       </div>
