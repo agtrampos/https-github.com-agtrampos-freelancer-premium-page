@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { Mail, CheckCircle2, Lock, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ShareButtons from './ShareButtons';
+import { useLocation } from 'wouter';
+import { useAuth } from '@/_core/hooks/useAuth';
+import { trpc } from '@/lib/trpc';
 
 interface LandingProps {
-  onUnlock: (email: string) => void;
+  onUnlock?: (email: string) => void;
 }
 
 /**
@@ -63,7 +66,9 @@ export default function Landing({ onUnlock }: LandingProps) {
     // Simular delay de processamento
     setTimeout(() => {
       setIsLoading(false);
-      onUnlock(email);
+      if (onUnlock) {
+        onUnlock(email);
+      }
     }, 500);
   };
 
