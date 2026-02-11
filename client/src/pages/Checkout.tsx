@@ -43,10 +43,16 @@ export default function Checkout() {
   // Mutation para criar checkout
   const createCheckoutMutation = trpc.payment.createCheckout.useMutation({
     onSuccess: (data) => {
-      // Redirecionar para InfinitePay
-      if (data.checkoutUrl) {
-        window.location.href = data.checkoutUrl;
-      }
+      // Armazenar ID de pagamento na sessão
+      sessionStorage.setItem('paymentId', data.paymentId?.toString() || '');
+      
+      // Redirecionar para InfinitePay com URL de retorno
+      const returnUrl = `${window.location.origin}/payment-success`;
+      const checkoutUrlWithReturn = data.checkoutUrl.includes('?')
+        ? `${data.checkoutUrl}&returnUrl=${encodeURIComponent(returnUrl)}`
+        : `${data.checkoutUrl}?returnUrl=${encodeURIComponent(returnUrl)}`;
+      
+      window.location.href = checkoutUrlWithReturn;
     },
     onError: (error) => {
       setIsProcessing(false);
