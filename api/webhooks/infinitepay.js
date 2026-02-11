@@ -1,10 +1,5 @@
 import { Redis } from "@upstash/redis";
 
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(200).json({ success: true, message: null });
@@ -12,6 +7,13 @@ export default async function handler(req, res) {
   try {
     const body = req.body;
     console.log("WEBHOOK RECEBIDO:", body);
+
+    const url = process.env.UPSTASH_REDIS_REST_URL;
+    const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+    if (!url || !token) {
+      return res.status(200).json({ success: true, message: null });
+    }
+    const redis = new Redis({ url, token });
 
     const orderId = body?.order_nsu;
     const status = (body?.status || "").toLowerCase();
