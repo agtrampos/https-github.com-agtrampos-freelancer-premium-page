@@ -5,6 +5,7 @@ import ShareButtons from './ShareButtons';
 import { useLocation } from 'wouter';
 import { useAuth } from '@/_core/hooks/useAuth';
 import { trpc } from '@/lib/trpc';
+import { getLoginUrl } from '@/const';
 
 interface LandingProps {
   onUnlock?: (email: string) => void;
@@ -30,6 +31,7 @@ export default function Landing({ onUnlock }: LandingProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [touched, setTouched] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   // Regex para validação de email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -118,7 +120,12 @@ export default function Landing({ onUnlock }: LandingProps) {
         });
         const vData = await v.json();
         if (v.ok && vData?.success) {
-          window.location.assign('/flm/acesso');
+          localStorage.setItem('fp_email', email);
+          if (isAuthenticated) {
+            window.location.assign('/flm/acesso');
+          } else {
+            window.location.assign(getLoginUrl());
+          }
           return;
         }
         localStorage.setItem('fp_email', email);
