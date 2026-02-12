@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         handle: "tramposshop",
         order_nsu,
-        redirect_url: "https://freelancerpremium.vercel.app/",
+        redirect_url: "https://freelancep-qtxecsyy.manus.space/",
         webhook_url: "https://freelancerpremium.vercel.app/api/webhooks/infinitepay",
         items: [
           {

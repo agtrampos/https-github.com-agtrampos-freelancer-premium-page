@@ -6,6 +6,7 @@
     "ENABLE_EXPERIMENTAL_COREPACK": "1"
   },
   "rewrites": [
+    { "source": "/auth/app-auth", "destination": "https://manus.im/app-auth" },
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]

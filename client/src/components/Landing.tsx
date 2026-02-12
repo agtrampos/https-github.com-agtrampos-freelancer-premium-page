@@ -11,7 +11,7 @@ interface LandingProps {
   onUnlock?: (email: string) => void;
 }
 
-const DIRECT_PLAN_URL = "https://invoice.infinitepay.io/plans/tramposshop/3cahNPZJ5L";
+const DIRECT_PLAN_URL = "https://checkout.infinitepay.io/tramposshop/MW8BMTYtR";
 
 /**
  * Landing Component
