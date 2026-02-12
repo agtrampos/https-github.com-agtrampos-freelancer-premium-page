@@ -165,12 +165,6 @@ export default function ContactPage() {
           <p>
             <span className="text-purple-300 font-semibold">CNPJ:</span> 57.514.866/0001-38
           </p>
-          <p>
-            <span className="text-purple-300 font-semibold">Banco:</span> BTG Pactual
-          </p>
-          <p>
-            <span className="text-purple-300 font-semibold">Email:</span> agtramposof@gmail.com
-          </p>
         </div>
       </div>
     </div>
