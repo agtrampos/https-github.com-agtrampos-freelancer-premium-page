@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
   try {
     const body = req.body;
-    console.log("WEBHOOK RECEBIDO:", body);
+    console.log("WEBHOOK RECEBIDO:", { keys: Object.keys(body || {}) });
 
     const url = process.env.UPSTASH_REDIS_REST_URL;
     const token = process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -17,20 +17,16 @@ export default async function handler(req, res) {
 
     const orderId = body?.order_nsu;
     const status = (body?.status || "").toLowerCase();
+    const emailFromPayload =
+      body?.customer?.email ||
+      body?.buyer?.email ||
+      body?.payer?.email ||
+      body?.payment?.customer?.email ||
+      null;
 
-    if (!orderId) {
-      return res.status(400).json({
-        success: false,
-        message: "Pedido não encontrado",
-      });
-    }
-
-    const order = await redis.get(`order:${orderId}`);
-    if (!order) {
-      return res.status(400).json({
-        success: false,
-        message: "Pedido não encontrado",
-      });
+    let order = null;
+    if (orderId) {
+      order = await redis.get(`order:${orderId}`);
     }
 
     if (status === "paid" || body?.paid === true) {
@@ -38,17 +34,27 @@ export default async function handler(req, res) {
       const nextDue = new Date();
       nextDue.setMonth(nextDue.getMonth() + 1);
 
-      await redis.set(`subscription:${order.email}`, {
+      const targetEmail = order?.email || emailFromPayload;
+      if (!targetEmail) {
+        return res.status(400).json({
+          success: false,
+          message: "Email não encontrado no webhook",
+        });
+      }
+
+      await redis.set(`subscription:${targetEmail}`, {
         status: "ACTIVE",
         subscription_start: now.toISOString(),
         subscription_next_due: nextDue.toISOString(),
         last_payment_date: now.toISOString(),
       });
 
-      await redis.set(`order:${orderId}`, {
-        ...order,
-        status: "PAID",
-      });
+      if (orderId && order) {
+        await redis.set(`order:${orderId}`, {
+          ...order,
+          status: "PAID",
+        });
+      }
     }
 
     return res.status(200).json({

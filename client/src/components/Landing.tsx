@@ -10,6 +10,8 @@ interface LandingProps {
   onUnlock?: (email: string) => void;
 }
 
+const DIRECT_PLAN_URL = "https://invoice.infinitepay.io/plans/tramposshop/3cahNPZJ5L";
+
 /**
  * Landing Component
  * Design: Minimalismo Moderno com Gradiente Roxo
@@ -109,20 +111,18 @@ export default function Landing({ onUnlock }: LandingProps) {
     setIsLoading(true);
     (async () => {
       try {
-        const resp = await fetch('/api/checkout', {
+        const v = await fetch('/api/validate-access', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
         });
-        const data = await resp.json();
-        console.log('checkout response:', data);
-        const checkoutUrl = data?.checkout_url || data?.url || null;
-        if (!resp.ok || !checkoutUrl) {
-          const msg401 = data?.code === 401 ? 'Configuração da InfinitePay inválida ou ausente.' : null;
-          setError(msg401 || data?.message || 'Não foi possível gerar o checkout. Tente novamente.');
+        const vData = await v.json();
+        if (v.ok && vData?.success) {
+          window.location.assign('/flm/acesso');
           return;
         }
-        window.location.assign(checkoutUrl);
+        localStorage.setItem('fp_email', email);
+        window.location.assign(DIRECT_PLAN_URL);
       } catch {
         setError('Falha de rede. Tente novamente.');
       } finally {
