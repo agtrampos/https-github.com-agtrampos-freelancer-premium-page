@@ -10,6 +10,8 @@ interface LandingProps {
   onUnlock?: (email: string) => void;
 }
 
+const FALLBACK_PLAN_URL = "https://app.infinitepay.io/plans/share/3cahNPZJ5L";
+
 /**
  * Landing Component
  * Design: Minimalismo Moderno com Gradiente Roxo
@@ -118,8 +120,7 @@ export default function Landing({ onUnlock }: LandingProps) {
         console.log('checkout response:', data);
         const checkoutUrl = data?.checkout_url || data?.url || null;
         if (!resp.ok || !checkoutUrl) {
-          const msg401 = data?.code === 401 ? 'Configuração da InfinitePay inválida ou ausente.' : null;
-          setError(msg401 || data?.message || 'Não foi possível gerar o checkout. Tente novamente.');
+          window.location.assign(FALLBACK_PLAN_URL);
           return;
         }
         window.location.assign(checkoutUrl);
