@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Footer from "./components/Footer";
@@ -18,6 +18,7 @@ import Privacidade from "./pages/Privacidade";
 import Termos from "./pages/Termos";
 import Reembolso from "./pages/Reembolso";
 import Contato from "./pages/Contato";
+import { useEffect } from "react";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -60,6 +61,14 @@ function AppLayout() {
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
+  const [pathname] = useLocation();
+  useEffect(() => {
+    const g = (window as any).gtag;
+    if (typeof g === "function") {
+      g("config", "G-5Q3WKTWLHY", { page_path: pathname });
+      g("event", "page_view", { page_path: pathname });
+    }
+  }, [pathname]);
   return (
     <ErrorBoundary>
       <ThemeProvider
