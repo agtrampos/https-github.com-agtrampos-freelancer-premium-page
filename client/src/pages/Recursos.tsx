@@ -1,4 +1,6 @@
 import FreelancerSites from "@/components/FreelancerSites";
+import LinksBlock from "@/components/LinksBlock";
+import { freelancerSitesData } from "@/components/FreelancerSites";
 
 export default function Recursos() {
   return (
@@ -13,6 +15,9 @@ export default function Recursos() {
           </p>
         </div>
         <FreelancerSites />
+        <div className="mt-12">
+          <LinksBlock excludeUrls={freelancerSitesData.map(s => s.url)} />
+        </div>
       </div>
     </div>
   );

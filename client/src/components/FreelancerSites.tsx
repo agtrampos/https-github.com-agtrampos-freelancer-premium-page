@@ -23,12 +23,28 @@ interface FreelancerSite {
  */
 const sites: FreelancerSite[] = [
   {
+    id: 'upwork',
+    name: 'Upwork',
+    tags: ['Internacional', 'Iniciante'],
+    description: 'Maior marketplace global de freelancers com ampla variedade de projetos.',
+    earnings: 'R$ 1.000 - R$ 12.000+/mês',
+    url: 'https://www.upwork.com',
+  },
+  {
     id: '99freelas',
     name: '99Freelas',
     tags: ['Nacional', 'Iniciante'],
     description: 'Plataforma brasileira com projetos variados e comunidade ativa.',
     earnings: 'R$ 300 - R$ 3.000+/mês',
     url: 'https://www.99freelas.com.br',
+  },
+  {
+    id: 'workana',
+    name: 'Workana',
+    tags: ['Nacional', 'Intermediário'],
+    description: 'Plataforma popular na América Latina com projetos em diversas áreas.',
+    earnings: 'R$ 500 - R$ 5.000+/mês',
+    url: 'https://www.workana.com',
   },
   {
     id: 'freelancer',
@@ -109,6 +125,30 @@ const sites: FreelancerSite[] = [
     description: 'Plataforma para escritores, jornalistas e criadores de conteúdo.',
     earnings: 'R$ 1.000 - R$ 10.000+/mês',
     url: 'https://contently.com',
+  },
+  {
+    id: 'writeraccess',
+    name: 'WriterAccess',
+    tags: ['Internacional', 'Intermediário'],
+    description: 'Marketplace de conteúdo com oportunidades para redatores e criativos.',
+    earnings: 'R$ 800 - R$ 6.000+/mês',
+    url: 'https://www.writeraccess.com',
+  },
+  {
+    id: 'textbroker',
+    name: 'Textbroker',
+    tags: ['Internacional', 'Iniciante'],
+    description: 'Plataforma para redatores com níveis de qualidade e pagamentos por texto.',
+    earnings: 'R$ 300 - R$ 2.000+/mês',
+    url: 'https://www.textbroker.com',
+  },
+  {
+    id: 'problogger',
+    name: 'ProBlogger',
+    tags: ['Internacional', 'Intermediário'],
+    description: 'Quadro de vagas para escritores e criadores de conteúdo.',
+    earnings: 'R$ 500 - R$ 4.000+/mês',
+    url: 'https://problogger.com/jobs',
   },
   {
     id: 'behance',
@@ -228,3 +268,4 @@ export default function FreelancerSites() {
     </div>
   );
 }
+export const freelancerSitesData = sites;

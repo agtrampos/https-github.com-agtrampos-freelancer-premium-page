@@ -21,6 +21,15 @@ export default function SitesPagamDolar() {
         <div className="mt-8">
           <a href="https://freelancerpremium.vercel.app/#:~:text=Comece%20hoje%20%E2%80%93%20Lista%20com%20sites%20%2B%20Estrat%C3%A9gia" className="btn-gradient px-6 py-2 rounded-lg font-semibold">Comece hoje – Lista com sites + Estratégia</a>
         </div>
+        <div className="mt-12">
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* @ts-ignore */}
+          {(() => {
+            const LinksBlock = require("@/components/LinksBlock").default;
+            const exclude = ["Upwork","Fiverr","RemoteOK","We Work Remotely","FlexJobs"];
+            return <LinksBlock excludeNames={exclude} />;
+          })()}
+        </div>
       </div>
     </div>
   );

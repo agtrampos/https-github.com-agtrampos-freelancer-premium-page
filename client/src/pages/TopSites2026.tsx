@@ -32,6 +32,18 @@ export default function TopSites2026() {
         <p className="text-gray-300 font-body">
           Considere nicho, taxas, competição, demanda e reputação antes de decidir onde focar.
         </p>
+        <div className="mt-12">
+          {/* Inserção coesa do bloco de links, excluindo nomes já listados acima */}
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* @ts-ignore */}
+          {(() => {
+            const LinksBlock = require("@/components/LinksBlock").default;
+            const exclude = [
+              "Upwork","Fiverr","99Freelas","Workana","Freelancer.com","RemoteOK","We Work Remotely","FlexJobs","LinkedIn ProFinder","PeoplePerHour"
+            ];
+            return <LinksBlock excludeNames={exclude} />;
+          })()}
+        </div>
       </div>
     </div>
   );
