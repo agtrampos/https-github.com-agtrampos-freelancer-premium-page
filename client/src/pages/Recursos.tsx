@@ -1,11 +1,13 @@
 import FreelancerSites from "@/components/FreelancerSites";
 import { useAuth } from "@/_core/hooks/useAuth";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function Recursos() {
   const { isAuthenticated } = useAuth();
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="max-w-6xl mx-auto px-4 py-16">
+        <Breadcrumbs />
         <div className="text-center mb-12">
           <h1 className="font-display text-4xl md:text-5xl font-bold">
             <span className="gradient-purple-pink-text">Recursos</span>

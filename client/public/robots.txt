@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://freelancer-premium.com/sitemap.xml
+Sitemap: https://freelancerpremium.vercel.app/sitemap.xml

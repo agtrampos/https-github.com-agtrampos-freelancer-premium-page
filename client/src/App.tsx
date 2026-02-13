@@ -25,6 +25,7 @@ import GuiaHomeOffice from "./pages/GuiaHomeOffice";
 import SitesPagamDolar from "./pages/SitesPagamDolar";
 import RankingPorCategoria from "./pages/RankingPorCategoria";
 import ChecklistSEOFreelancer from "./pages/ChecklistSEOFreelancer";
+import HtmlSitemap from "./pages/HtmlSitemap";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -47,6 +48,7 @@ function Router() {
       <Route path="/sites-que-pagam-em-dolar-aceitam-brasileiros" component={SitesPagamDolar} />
       <Route path="/ranking-melhores-sites-por-categoria" component={RankingPorCategoria} />
       <Route path="/checklist-seo-perfil-freelancer" component={ChecklistSEOFreelancer} />
+      <Route path="/sitemap" component={HtmlSitemap} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/payment-success" component={PaymentSuccess} />
       <Route path="/404" component={NotFound} />
@@ -80,6 +82,15 @@ function App() {
       g("config", "G-5Q3WKTWLHY", { page_path: pathname });
       g("event", "page_view", { page_path: pathname });
     }
+    const origin = window.location.origin;
+    const canonicalHref = origin + pathname;
+    let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!link) {
+      link = document.createElement("link");
+      link.setAttribute("rel", "canonical");
+      document.head.appendChild(link);
+    }
+    link.setAttribute("href", canonicalHref);
   }, [pathname]);
   return (
     <ErrorBoundary>
