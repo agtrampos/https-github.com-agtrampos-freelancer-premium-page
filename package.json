@@ -8,6 +8,8 @@
     "build": "vite build",
     "start": "NODE_ENV=production node dist/index.js",
     "format": "prettier --write .",
+    "lint": "prettier --check .",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "db:push": "drizzle-kit generate && drizzle-kit migrate"
   },
