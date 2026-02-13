@@ -194,15 +194,31 @@ export default function Landing({ onUnlock }: LandingProps) {
           {/* Headline */}
           <h1 className="font-display text-5xl md:text-6xl font-bold mb-6 leading-tight">
             <span className="gradient-purple-pink-text">
-              Melhores Sites de Trabalho Remoto e Freelance
+              Top 50 Sites de Trabalho Remoto e Freelance
             </span>
             <br />
             <span className="text-white">
-              em 2026
+              em 2026 — Lista Com Links
             </span>
           </h1>
 
           {/* Subheadline */}
+          <div className="flex justify-center mb-6">
+            <a
+              href="/checkout"
+              onClick={() => {
+                try {
+                  const g = (window as any).gtag;
+                  if (typeof g === 'function') {
+                    g('event', 'cta_click', { variant: 'Acesse Agora – topo', page_path: window.location.pathname });
+                  }
+                } catch {}
+              }}
+              className="btn-gradient px-8 py-3 rounded-lg font-semibold"
+            >
+              Acesse Agora
+            </a>
+          </div>
           <p className="text-xl md:text-2xl text-gray-300 font-body mb-12 leading-relaxed">
             Sites, estratégia e caminho prático para começar.
             <br />
