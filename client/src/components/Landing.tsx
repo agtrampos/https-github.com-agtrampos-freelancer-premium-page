@@ -31,6 +31,7 @@ export default function Landing({ onUnlock }: LandingProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [touched, setTouched] = useState(false);
+  const [ctaLabel, setCtaLabel] = useState('Ver oportunidades agora');
   const { isAuthenticated } = useAuth();
 
   // Regex para validação de email
@@ -110,6 +111,12 @@ export default function Landing({ onUnlock }: LandingProps) {
       setError('Por favor, digite um email válido (ex: seu@email.com)');
       return;
     }
+    try {
+      const g = (window as any).gtag;
+      if (typeof g === 'function') {
+        g('event', 'cta_click', { variant: ctaLabel, page_path: window.location.pathname });
+      }
+    } catch {}
     setIsLoading(true);
     (async () => {
       try {
@@ -140,6 +147,34 @@ export default function Landing({ onUnlock }: LandingProps) {
   useEffect(() => {
     const saved = localStorage.getItem('fp_email');
     if (saved) setEmail(saved);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const labels = [
+      'Acesse agora – Guia Freelancer 2026',
+      'Comece hoje – Lista com sites + Estratégia',
+      'Ganhe acesso imediato (vagas limitadas)',
+      'Quero trabalhar remoto em 2026',
+    ];
+    const params = new URLSearchParams(window.location.search);
+    const override = params.get('cta');
+    let idx = -1;
+    if (override) {
+      const map: Record<string, number> = { a: 0, b: 1, c: 2, d: 3 };
+      const key = override.toLowerCase();
+      if (key in map) idx = map[key];
+    }
+    if (idx < 0) {
+      const stored = localStorage.getItem('fp_cta_variant_idx');
+      if (stored && !Number.isNaN(Number(stored))) {
+        idx = Number(stored);
+      } else {
+        idx = Math.floor(Math.random() * labels.length);
+        localStorage.setItem('fp_cta_variant_idx', String(idx));
+      }
+    }
+    setCtaLabel(labels[idx] || labels[0]);
   }, []);
 
   useEffect(() => {
@@ -255,7 +290,7 @@ export default function Landing({ onUnlock }: LandingProps) {
               disabled={isLoading || (touched && !isEmailValid && email.length > 0)}
               className="btn-gradient px-8 py-3 rounded-lg font-semibold whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Processando...' : 'Ver oportunidades agora'}
+              {isLoading ? 'Processando...' : ctaLabel}
             </Button>
           </div>
 
@@ -284,7 +319,7 @@ export default function Landing({ onUnlock }: LandingProps) {
             <div className="flex items-center gap-2 px-4 py-3 bg-green-500/10 border border-green-500/30 rounded-lg animate-fade-in">
               <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
               <p className="text-green-400 text-sm font-body">
-                Email válido! Clique em "Ver oportunidades agora" para continuar.
+                Email válido! Clique em "{ctaLabel}" para continuar.
               </p>
             </div>
           )}
