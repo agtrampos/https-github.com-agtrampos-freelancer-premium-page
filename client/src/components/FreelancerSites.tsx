@@ -1,5 +1,6 @@
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/_core/hooks/useAuth';
 
 interface FreelancerSite {
   id: string;
@@ -202,86 +203,118 @@ const tagColors: { [key: string]: string } = {
 };
 
 export default function FreelancerSites() {
+  const { isAuthenticated } = useAuth();
   return (
     <div id="sites" className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {(() => {
-          const seen = new Set<string>();
-          const list = sites.filter(s => {
-            const k = (s.url || s.name).trim().toLowerCase();
-            if (seen.has(k)) return false;
-            seen.add(k);
-            return true;
-          });
-          return list.map((site, index) => (
-          <div
-            key={site.id}
-            className="card-premium p-6 flex flex-col"
-            style={{ animationDelay: `${index * 0.05}s` }}
-          >
-            {/* Header */}
-            <div className="mb-4">
-              <h3 className="font-headline text-xl font-semibold mb-3">
-                {site.name}
-              </h3>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                {site.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className={`badge-tag ${tagColors[tag] || 'bg-purple-500/20 text-purple-300 border-purple-500/30'}`}
-                  >
-                    {tag}
-                  </span>
-                ))}
+      {isAuthenticated ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {(() => {
+            const seen = new Set<string>();
+            const list = sites.filter(s => {
+              const k = (s.url || s.name).trim().toLowerCase();
+              if (seen.has(k)) return false;
+              seen.add(k);
+              return true;
+            });
+            return list.map((site, index) => (
+            <div
+              key={site.id}
+              className="card-premium p-6 flex flex-col"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            >
+              <div className="mb-4">
+                <h3 className="font-headline text-xl font-semibold mb-3">
+                  {site.name}
+                </h3>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {site.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className={`badge-tag ${tagColors[tag] || 'bg-purple-500/20 text-purple-300 border-purple-500/30'}`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-
-            {/* Description */}
-            <p className="text-gray-300 font-body text-sm mb-4 flex-grow">
-              {site.description}
-            </p>
-
-            {/* Earnings */}
-            <div className="mb-4 pb-4 border-b border-border">
-              <p className="text-xs text-gray-400 font-body mb-1">Ganhos estimados:</p>
-              <p className="text-purple-300 font-semibold text-sm">
-                {site.earnings}
+              <p className="text-gray-300 font-body text-sm mb-4 flex-grow">
+                {site.description}
               </p>
+              <div className="mb-4 pb-4 border-b border-border">
+                <p className="text-xs text-gray-400 font-body mb-1">Ganhos estimados:</p>
+                <p className="text-purple-300 font-semibold text-sm">
+                  {site.earnings}
+                </p>
+              </div>
+              <a
+                href={site.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full"
+                onClick={() => {
+                  try {
+                    const g = (window as any).gtag;
+                    if (typeof g === "function") {
+                      g("event", "platform_click", { name: site.name, url: site.url });
+                    }
+                  } catch {}
+                }}
+              >
+                <button className="w-full btn-gradient px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 hover:shadow-lg transition-all">
+                  Acessar Site
+                  <ExternalLink className="w-4 h-4" />
+                </button>
+              </a>
             </div>
-
-            {/* Button */}
+            ));
+          })()}
+        </div>
+      ) : (
+        <div className="space-y-6">
+          <div className="card-premium p-6">
+            <div className="flex items-center gap-2 mb-2">
+              <Lock className="w-5 h-5 text-purple-300" />
+              <h3 className="font-headline text-xl font-semibold text-white">Conteúdo Premium</h3>
+            </div>
+            <p className="text-gray-300 font-body text-sm">
+              As listas completas de plataformas e links diretos estão disponíveis para membros.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              'Freelance',
+              'Vagas Remotas',
+              'Buscadores de Emprego',
+              'Escrita & Conteúdo',
+              'Startups & Tech',
+              'Microtarefas & Serviços',
+            ].map((cat) => (
+              <div key={cat} className="card-premium p-4">
+                <h4 className="font-headline text-lg font-semibold text-white">🔹 {cat}</h4>
+                <p className="text-gray-300 font-body text-sm">
+                  Acesso completo disponível após login.
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
             <a
-              href={site.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full"
+              href="/checkout"
+              className="btn-gradient px-6 py-2 rounded-lg font-semibold inline-flex items-center gap-2"
               onClick={() => {
                 try {
                   const g = (window as any).gtag;
-                  if (typeof g === "function") {
-                    g("event", "platform_click", { name: site.name, url: site.url });
+                  if (typeof g === 'function') {
+                    g('event', 'cta_click', { variant: 'Acesso premium – recursos', page_path: window.location.pathname });
                   }
                 } catch {}
               }}
             >
-              <button className="w-full btn-gradient px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 hover:shadow-lg transition-all">
-                Acessar Site
-                <ExternalLink className="w-4 h-4" />
-              </button>
+              Acessar conteúdo premium
             </a>
           </div>
-          ));
-        })()}
-      </div>
-
-      {/* Footer Note */}
-      <div className="text-center pt-8">
-        <p className="text-gray-400 font-body text-sm">
-          💡 Dica: Comece com 3-4 plataformas e expanda gradualmente conforme ganhar experiência.
-        </p>
-      </div>
+        </div>
+      )}
     </div>
   );
 }

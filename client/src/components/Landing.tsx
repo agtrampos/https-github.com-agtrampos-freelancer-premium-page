@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Mail, CheckCircle2, Lock, AlertCircle } from 'lucide-react';
+import { Mail, CheckCircle2, Lock, AlertCircle, ArrowRight, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ShareButtons from './ShareButtons';
 import { useLocation } from 'wouter';
 import { useAuth } from '@/_core/hooks/useAuth';
 import { trpc } from '@/lib/trpc';
 import { getLoginUrl } from '@/const';
-import LinksBlock from '@/components/LinksBlock';
+ 
 
 interface LandingProps {
   onUnlock?: (email: string) => void;
@@ -151,31 +151,7 @@ export default function Landing({ onUnlock }: LandingProps) {
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const labels = [
-      'Acesse agora – Guia Freelancer 2026',
-      'Comece hoje – Lista com sites + Estratégia',
-      'Ganhe acesso imediato (vagas limitadas)',
-      'Quero trabalhar remoto em 2026',
-    ];
-    const params = new URLSearchParams(window.location.search);
-    const override = params.get('cta');
-    let idx = -1;
-    if (override) {
-      const map: Record<string, number> = { a: 0, b: 1, c: 2, d: 3 };
-      const key = override.toLowerCase();
-      if (key in map) idx = map[key];
-    }
-    if (idx < 0) {
-      const stored = localStorage.getItem('fp_cta_variant_idx');
-      if (stored && !Number.isNaN(Number(stored))) {
-        idx = Number(stored);
-      } else {
-        idx = Math.floor(Math.random() * labels.length);
-        localStorage.setItem('fp_cta_variant_idx', String(idx));
-      }
-    }
-    setCtaLabel(labels[idx] || labels[0]);
+    setCtaLabel('Ver oportunidades agora');
   }, []);
 
   useEffect(() => {
@@ -194,13 +170,11 @@ export default function Landing({ onUnlock }: LandingProps) {
         <div className="text-center mb-12 animate-fade-in-up">
           {/* Headline */}
           <h1 className="font-display text-5xl md:text-6xl font-bold mb-6 leading-tight">
-            <span className="gradient-purple-pink-text">
-              Top 50 Sites de Trabalho Remoto e Freelance
-            </span>
+            <span className="gradient-purple-pink-text">Descubra onde ganhar dinheiro</span>
             <br />
-            <span className="text-white">
-              em 2026 — Lista Com Links
-            </span>
+            <span className="gradient-purple-pink-text">como freelancer em</span>
+            <br />
+            <span className="text-white">2026</span>
           </h1>
 
           {/* Subheadline */}
@@ -211,13 +185,15 @@ export default function Landing({ onUnlock }: LandingProps) {
                 try {
                   const g = (window as any).gtag;
                   if (typeof g === 'function') {
-                    g('event', 'cta_click', { variant: 'Acesse Agora – topo', page_path: window.location.pathname });
+                    g('event', 'cta_click', { variant: 'Ver oportunidades agora – topo', page_path: window.location.pathname });
                   }
                 } catch {}
               }}
-              className="btn-gradient px-8 py-3 rounded-lg font-semibold"
+              className="btn-gradient px-8 py-3 rounded-lg font-semibold inline-flex items-center gap-2"
+              style={{ boxShadow: '0 0 22px rgba(236,72,153,0.35)', border: '1px solid rgba(236,72,153,0.45)' }}
             >
-              Acesse Agora
+              Ver oportunidades agora
+              <ArrowRight className="w-5 h-5" />
             </a>
           </div>
           <p className="text-xl md:text-2xl text-gray-300 font-body mb-12 leading-relaxed">
@@ -229,40 +205,37 @@ export default function Landing({ onUnlock }: LandingProps) {
 
         {/* SEO Structure Sections */}
         <div className="space-y-8 mb-12 animate-fade-in-up" style={{ animationDelay: '0.08s' }}>
-          <h2 className="font-headline text-2xl md:text-3xl font-bold text-white">
-            Trabalho Remoto x Freelancer — qual a diferença
-          </h2>
-          <p className="text-gray-300 font-body">
-            Entenda modelos, formas de contratação e quando escolher cada caminho.
-          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-4">
+            <div className="text-center">
+              <div className="mx-auto mb-2 w-14 h-14 rounded-full border border-pink-500/40 flex items-center justify-center shadow-[0_0_18px_rgba(236,72,153,0.35)]">
+                <CheckCircle2 className="w-6 h-6 text-pink-400" />
+              </div>
+              <p className="text-gray-300 font-body">Acesso imediato</p>
+            </div>
+            <div className="text-center">
+              <div className="mx-auto mb-2 w-14 h-14 rounded-full border border-pink-500/40 flex items-center justify-center shadow-[0_0_18px_rgba(236,72,153,0.35)]">
+                <CreditCard className="w-6 h-6 text-pink-400" />
+              </div>
+              <p className="text-gray-300 font-body">Pagamento único</p>
+            </div>
+            <div className="text-center">
+              <div className="mx-auto mb-2 w-14 h-14 rounded-full border border-pink-500/40 flex items-center justify-center shadow-[0_0_18px_rgba(236,72,153,0.35)]">
+                <Lock className="w-6 h-6 text-pink-400" />
+              </div>
+              <p className="text-gray-300 font-body">Vagas limitadas</p>
+            </div>
+          </div>
+          <div className="card-premium p-6 border border-pink-500/30 shadow-[0_0_24px_rgba(236,72,153,0.25)]">
+            <div className="flex items-center gap-3 mb-2">
+              <Lock className="w-5 h-5 text-pink-400" />
+              <h3 className="font-headline text-lg font-semibold text-pink-300">CONTEÚDO PREMIUM</h3>
+            </div>
+            <p className="text-gray-300 font-body">
+              A lista de sites secretos e a estratégia personalizada são ativadas apenas após o acesso.
+            </p>
+          </div>
 
-          <h2 className="font-headline text-2xl md:text-3xl font-bold text-white">
-            Lista dos 50 melhores sites (com links)
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="card-premium p-4">
-              <h3 className="font-headline text-lg font-semibold text-white">Categoria: Freelance</h3>
-              <p className="text-gray-300 font-body text-sm">Upwork, Fiverr, 99Freelas, Workana, Freelancer.com</p>
-            </div>
-            <div className="card-premium p-4">
-              <h3 className="font-headline text-lg font-semibold text-white">Categoria: Vagas Remotas</h3>
-              <p className="text-gray-300 font-body text-sm">RemoteOK, WeWorkRemotely, FlexJobs, SimplyHired</p>
-            </div>
-            <div className="card-premium p-4">
-              <h3 className="font-headline text-lg font-semibold text-white">Categoria: Escrita e Conteúdo</h3>
-              <p className="text-gray-300 font-body text-sm">ProBlogger, Contently, Textbroker, WriterAccess</p>
-            </div>
-          </div>
-          <div className="flex justify-center">
-            <a href="https://freelancerpremium.vercel.app/#:~:text=Comece%20hoje%20%E2%80%93%20Lista%20com%20sites%20%2B%20Estrat%C3%A9gia" className="btn-gradient px-6 py-2 rounded-lg font-semibold">Comece hoje – Lista com sites + Estratégia</a>
-          </div>
-          <div className="mt-8">
-            <LinksBlock excludeNames={[
-              "Upwork","Fiverr","99Freelas","Workana","Freelancer.com",
-              "RemoteOK","WeWorkRemotely","FlexJobs","SimplyHired",
-              "ProBlogger","Contently","Textbroker","WriterAccess"
-            ]} />
-          </div>
+          {/* conteúdo premium bloqueado conforme design */}
 
           <h2 className="font-headline text-2xl md:text-3xl font-bold text-white">
             Como escolher site de freelance
