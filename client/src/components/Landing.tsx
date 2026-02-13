@@ -159,11 +159,11 @@ export default function Landing({ onUnlock }: LandingProps) {
           {/* Headline */}
           <h1 className="font-display text-5xl md:text-6xl font-bold mb-6 leading-tight">
             <span className="gradient-purple-pink-text">
-              Descubra onde ganhar dinheiro
+              Melhores Sites de Trabalho Remoto e Freelance
             </span>
             <br />
             <span className="text-white">
-              como freelancer em 2026
+              em 2026
             </span>
           </h1>
 
@@ -173,6 +173,58 @@ export default function Landing({ onUnlock }: LandingProps) {
             <br />
             <span className="font-semibold">Sem tentativa e erro.</span>
           </p>
+        </div>
+
+        {/* SEO Structure Sections */}
+        <div className="space-y-8 mb-12 animate-fade-in-up" style={{ animationDelay: '0.08s' }}>
+          <h2 className="font-headline text-2xl md:text-3xl font-bold text-white">
+            Trabalho Remoto x Freelancer — qual a diferença
+          </h2>
+          <p className="text-gray-300 font-body">
+            Entenda modelos, formas de contratação e quando escolher cada caminho.
+          </p>
+
+          <h2 className="font-headline text-2xl md:text-3xl font-bold text-white">
+            Lista dos 50 melhores sites (com links)
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="card-premium p-4">
+              <h3 className="font-headline text-lg font-semibold text-white">Categoria: Freelance</h3>
+              <p className="text-gray-300 font-body text-sm">Upwork, Fiverr, 99Freelas, Workana, Freelancer.com</p>
+            </div>
+            <div className="card-premium p-4">
+              <h3 className="font-headline text-lg font-semibold text-white">Categoria: Vagas Remotas</h3>
+              <p className="text-gray-300 font-body text-sm">RemoteOK, WeWorkRemotely, FlexJobs, SimplyHired</p>
+            </div>
+            <div className="card-premium p-4">
+              <h3 className="font-headline text-lg font-semibold text-white">Categoria: Escrita e Conteúdo</h3>
+              <p className="text-gray-300 font-body text-sm">ProBlogger, Contently, Textbroker, WriterAccess</p>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <a href="/recursos" className="btn-gradient px-6 py-2 rounded-lg font-semibold">Ver lista completa</a>
+          </div>
+
+          <h2 className="font-headline text-2xl md:text-3xl font-bold text-white">
+            Como escolher site de freelance
+          </h2>
+          <p className="text-gray-300 font-body">Critérios: nicho, taxas, competição, demanda e reputação.</p>
+
+          <h2 className="font-headline text-2xl md:text-3xl font-bold text-white">
+            Estratégias para conseguir os primeiros jobs
+          </h2>
+          <p className="text-gray-300 font-body">Propostas personalizadas, preços iniciais competitivos e respostas rápidas.</p>
+          <div>
+            <a href="/estrategias" className="px-6 py-2 rounded-lg font-semibold border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 transition-colors">Ver estratégias</a>
+          </div>
+
+          <h2 className="font-headline text-2xl md:text-3xl font-bold text-white">
+            FAQ (SEO + intenção do usuário)
+          </h2>
+          <p className="text-gray-300 font-body">Principais dúvidas sobre ganhos, tempo e plataformas.</p>
+          <div>
+            <a href="/faq" className="px-6 py-2 rounded-lg font-semibold border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 transition-colors">Ir para FAQ</a>
+          </div>
         </div>
 
         {/* Email Capture Form */}
