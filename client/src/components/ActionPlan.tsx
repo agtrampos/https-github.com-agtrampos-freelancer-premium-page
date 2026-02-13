@@ -127,12 +127,15 @@ export default function ActionPlan() {
           Você tem tudo que precisa para começar. O sucesso depende de ação consistente e qualidade no trabalho.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/checkout" className="btn-gradient px-8 py-3 rounded-lg font-semibold">
+            Começar Agora
+          </a>
           <a href="#sites" className="btn-gradient px-8 py-3 rounded-lg font-semibold">
             Voltar aos Sites
           </a>
-          <button className="px-8 py-3 rounded-lg font-semibold border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 transition-colors">
+          <a href="#share" className="px-8 py-3 rounded-lg font-semibold border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 transition-colors">
             Compartilhar com Amigos
-          </button>
+          </a>
         </div>
       </div>
 

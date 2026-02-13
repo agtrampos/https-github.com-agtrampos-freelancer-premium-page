@@ -38,6 +38,28 @@ export default function UnlockedArea({ email }: UnlockedAreaProps) {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const applyHashNavigation = () => {
+      if (typeof window === 'undefined') return;
+      const hash = window.location.hash.replace('#', '');
+      if (!hash) return;
+      if (['sites', 'estrategias', 'plano', 'depoimentos', 'faq'].includes(hash)) {
+        setActiveMainTab('recursos');
+        setActiveResourceTab(hash);
+      } else if (['informacoes', 'privacy', 'terms', 'refund', 'contact'].includes(hash)) {
+        setActiveMainTab('informacoes');
+        // opcional: mapear subtabs de informações
+        if (['privacy', 'terms', 'refund', 'contact'].includes(hash)) {
+          setActiveInfoTab(hash);
+        }
+      }
+    };
+    applyHashNavigation();
+    const handler = () => applyHashNavigation();
+    window.addEventListener('hashchange', handler);
+    return () => window.removeEventListener('hashchange', handler);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground py-12 px-4">
       {/* Confetti Animation */}
@@ -217,7 +239,7 @@ export default function UnlockedArea({ email }: UnlockedAreaProps) {
       </div>
 
       {/* Share Section */}
-      <div className="max-w-6xl mx-auto px-4 py-16 text-center animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
+      <div id="share" className="max-w-6xl mx-auto px-4 py-16 text-center animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
         <h3 className="font-headline text-2xl font-semibold mb-4 text-white">
           Compartilhe este conteudo com seus amigos!
         </h3>

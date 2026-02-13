@@ -205,9 +205,9 @@ export default function Testimonials() {
           <p className="text-gray-300 font-body mb-6">
             Você tem acesso a todas as estratégias, sites e plano de ação. Comece hoje mesmo!
           </p>
-          <button className="btn-gradient px-8 py-3 rounded-lg font-semibold">
+          <a href="#plano" className="btn-gradient px-8 py-3 rounded-lg font-semibold">
             Voltar ao Plano de Ação
-          </button>
+          </a>
         </div>
       </div>
     </div>

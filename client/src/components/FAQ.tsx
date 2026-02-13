@@ -198,9 +198,9 @@ export default function FAQ() {
           <p className="text-gray-300 font-body mb-6">
             Se sua pergunta não foi respondida aqui, você pode encontrar mais informações no plano de ação e nas estratégias de sucesso.
           </p>
-          <button className="btn-gradient px-8 py-3 rounded-lg font-semibold">
+          <a href="#plano" className="btn-gradient px-8 py-3 rounded-lg font-semibold">
             Voltar ao Plano de Ação
-          </button>
+          </a>
         </div>
       </div>
     </div>
