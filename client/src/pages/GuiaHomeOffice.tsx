@@ -17,7 +17,7 @@ export default function GuiaHomeOffice() {
           <li>Estratégia de conteúdo e networking</li>
         </ul>
         <div className="mt-8">
-          <a href="/recursos" className="btn-gradient px-6 py-2 rounded-lg font-semibold">Ver plataformas recomendadas</a>
+          <a href="https://freelancerpremium.vercel.app/#:~:text=Comece%20hoje%20%E2%80%93%20Lista%20com%20sites%20%2B%20Estrat%C3%A9gia" className="btn-gradient px-6 py-2 rounded-lg font-semibold">Comece hoje – Lista com sites + Estratégia</a>
         </div>
       </div>
     </div>
