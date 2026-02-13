@@ -19,6 +19,12 @@ import Termos from "./pages/Termos";
 import Reembolso from "./pages/Reembolso";
 import Contato from "./pages/Contato";
 import { useEffect } from "react";
+import TopSites2026 from "./pages/TopSites2026";
+import Renda5000Plano from "./pages/Renda5000Plano";
+import GuiaHomeOffice from "./pages/GuiaHomeOffice";
+import SitesPagamDolar from "./pages/SitesPagamDolar";
+import RankingPorCategoria from "./pages/RankingPorCategoria";
+import ChecklistSEOFreelancer from "./pages/ChecklistSEOFreelancer";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -35,6 +41,12 @@ function Router() {
       <Route path="/termos" component={Termos} />
       <Route path="/reembolso" component={Reembolso} />
       <Route path="/contato" component={Contato} />
+      <Route path="/top-10-sites-freelancer-2026" component={TopSites2026} />
+      <Route path="/como-ganhar-5000-por-mes-plano" component={Renda5000Plano} />
+      <Route path="/guia-home-office-iniciantes" component={GuiaHomeOffice} />
+      <Route path="/sites-que-pagam-em-dolar-aceitam-brasileiros" component={SitesPagamDolar} />
+      <Route path="/ranking-melhores-sites-por-categoria" component={RankingPorCategoria} />
+      <Route path="/checklist-seo-perfil-freelancer" component={ChecklistSEOFreelancer} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/payment-success" component={PaymentSuccess} />
       <Route path="/404" component={NotFound} />
