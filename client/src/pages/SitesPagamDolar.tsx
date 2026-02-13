@@ -1,3 +1,5 @@
+import LinksBlock from "@/components/LinksBlock";
+
 export default function SitesPagamDolar() {
   return (
     <div className="py-16 px-4 bg-background">
@@ -22,13 +24,7 @@ export default function SitesPagamDolar() {
           <a href="https://freelancerpremium.vercel.app/#:~:text=Comece%20hoje%20%E2%80%93%20Lista%20com%20sites%20%2B%20Estrat%C3%A9gia" className="btn-gradient px-6 py-2 rounded-lg font-semibold">Comece hoje – Lista com sites + Estratégia</a>
         </div>
         <div className="mt-12">
-          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-          {/* @ts-ignore */}
-          {(() => {
-            const LinksBlock = require("@/components/LinksBlock").default;
-            const exclude = ["Upwork","Fiverr","RemoteOK","We Work Remotely","FlexJobs"];
-            return <LinksBlock excludeNames={exclude} />;
-          })()}
+          <LinksBlock excludeNames={["Upwork","Fiverr","RemoteOK","We Work Remotely","FlexJobs"]} />
         </div>
       </div>
     </div>

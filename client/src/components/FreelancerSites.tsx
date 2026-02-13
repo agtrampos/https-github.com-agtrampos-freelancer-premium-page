@@ -205,7 +205,15 @@ export default function FreelancerSites() {
   return (
     <div id="sites" className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sites.map((site, index) => (
+        {(() => {
+          const seen = new Set<string>();
+          const list = sites.filter(s => {
+            const k = (s.url || s.name).trim().toLowerCase();
+            if (seen.has(k)) return false;
+            seen.add(k);
+            return true;
+          });
+          return list.map((site, index) => (
           <div
             key={site.id}
             className="card-premium p-6 flex flex-col"
@@ -249,6 +257,14 @@ export default function FreelancerSites() {
               target="_blank"
               rel="noopener noreferrer"
               className="w-full"
+              onClick={() => {
+                try {
+                  const g = (window as any).gtag;
+                  if (typeof g === "function") {
+                    g("event", "platform_click", { name: site.name, url: site.url });
+                  }
+                } catch {}
+              }}
             >
               <button className="w-full btn-gradient px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 hover:shadow-lg transition-all">
                 Acessar Site
@@ -256,7 +272,8 @@ export default function FreelancerSites() {
               </button>
             </a>
           </div>
-        ))}
+          ));
+        })()}
       </div>
 
       {/* Footer Note */}

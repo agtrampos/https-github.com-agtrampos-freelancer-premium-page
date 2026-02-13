@@ -6,6 +6,7 @@ import { useLocation } from 'wouter';
 import { useAuth } from '@/_core/hooks/useAuth';
 import { trpc } from '@/lib/trpc';
 import { getLoginUrl } from '@/const';
+import LinksBlock from '@/components/LinksBlock';
 
 interface LandingProps {
   onUnlock?: (email: string) => void;
@@ -256,17 +257,11 @@ export default function Landing({ onUnlock }: LandingProps) {
             <a href="https://freelancerpremium.vercel.app/#:~:text=Comece%20hoje%20%E2%80%93%20Lista%20com%20sites%20%2B%20Estrat%C3%A9gia" className="btn-gradient px-6 py-2 rounded-lg font-semibold">Comece hoje – Lista com sites + Estratégia</a>
           </div>
           <div className="mt-8">
-            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-            {/* @ts-ignore */}
-            {(() => {
-              const LinksBlock = require("@/components/LinksBlock").default;
-              const exclude = [
-                "Upwork","Fiverr","99Freelas","Workana","Freelancer.com",
-                "RemoteOK","WeWorkRemotely","FlexJobs","SimplyHired",
-                "ProBlogger","Contently","Textbroker","WriterAccess"
-              ];
-              return <LinksBlock excludeNames={exclude} />;
-            })()}
+            <LinksBlock excludeNames={[
+              "Upwork","Fiverr","99Freelas","Workana","Freelancer.com",
+              "RemoteOK","WeWorkRemotely","FlexJobs","SimplyHired",
+              "ProBlogger","Contently","Textbroker","WriterAccess"
+            ]} />
           </div>
 
           <h2 className="font-headline text-2xl md:text-3xl font-bold text-white">
