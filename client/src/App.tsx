@@ -26,6 +26,7 @@ import SitesPagamDolar from "./pages/SitesPagamDolar";
 import RankingPorCategoria from "./pages/RankingPorCategoria";
 import ChecklistSEOFreelancer from "./pages/ChecklistSEOFreelancer";
 import HtmlSitemap from "./pages/HtmlSitemap";
+import AdsenseAutoRelaxed from "./components/AdsenseAutoRelaxed";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -64,6 +65,9 @@ function AppLayout() {
       <main className="flex-1">
         <Router />
       </main>
+      <div className="max-w-6xl mx-auto px-4 py-6">
+        <AdsenseAutoRelaxed />
+      </div>
       <Footer />
     </div>
   );
