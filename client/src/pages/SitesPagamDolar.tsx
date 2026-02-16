@@ -1,3 +1,5 @@
+import AdsenseInArticle from "@/components/AdsenseInArticle";
+
 export default function SitesPagamDolar() {
   return (
     <div className="py-16 px-4 bg-background">
@@ -13,6 +15,7 @@ export default function SitesPagamDolar() {
         <p className="text-gray-300 font-body mb-8">
           Plataformas internacionais com pagamento em dólar e cadastro liberado para profissionais do Brasil.
         </p>
+        <AdsenseInArticle />
         <h2 className="font-headline text-2xl font-semibold text-white mb-4">
           Plataformas recomendadas
         </h2>

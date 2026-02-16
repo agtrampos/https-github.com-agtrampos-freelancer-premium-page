@@ -1,3 +1,5 @@
+import AdsenseInArticle from "@/components/AdsenseInArticle";
+
 export default function ChecklistSEOFreelancer() {
   return (
     <div className="py-16 px-4 bg-background">
@@ -8,6 +10,7 @@ export default function ChecklistSEOFreelancer() {
         <p className="text-gray-300 font-body mb-8">
           Um checklist prático para otimizar perfis, portfólios e conteúdo com foco em ranqueamento orgânico.
         </p>
+        <AdsenseInArticle />
         <h2 className="font-headline text-2xl font-semibold text-white mb-4">
           Itens essenciais
         </h2>

@@ -1,3 +1,5 @@
+import AdsenseInArticle from "@/components/AdsenseInArticle";
+
 export default function TopSites2026() {
   return (
     <div className="py-16 px-4 bg-background">
@@ -14,6 +16,7 @@ export default function TopSites2026() {
         <p className="text-gray-300 font-body mb-8">
           Descubra os melhores sites para trabalhar como freelancer em 2026, incluindo plataformas que aceitam brasileiros e oferecem oportunidades de trabalho remoto.
         </p>
+        <AdsenseInArticle />
         <h2 className="font-headline text-2xl font-semibold text-white mb-4">
           Lista dos principais
         </h2>

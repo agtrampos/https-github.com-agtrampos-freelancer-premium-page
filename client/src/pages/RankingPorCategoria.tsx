@@ -1,3 +1,5 @@
+import AdsenseInArticle from "@/components/AdsenseInArticle";
+
 export default function RankingPorCategoria() {
   return (
     <div className="py-16 px-4 bg-background">
@@ -8,6 +10,7 @@ export default function RankingPorCategoria() {
         <p className="text-gray-300 font-body mb-8">
           Classificação por categorias para facilitar a escolha da plataforma ideal de acordo com seu nicho.
         </p>
+        <AdsenseInArticle />
         <h2 className="font-headline text-2xl font-semibold text-white mb-4">
           Categoria: Freelance
         </h2>

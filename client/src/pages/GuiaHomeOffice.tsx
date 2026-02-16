@@ -1,3 +1,5 @@
+import AdsenseInArticle from "@/components/AdsenseInArticle";
+
 export default function GuiaHomeOffice() {
   return (
     <div className="py-16 px-4 bg-background">
@@ -8,6 +10,7 @@ export default function GuiaHomeOffice() {
         <p className="text-gray-300 font-body mb-8">
           Passo a passo para começar no home office com produtividade, posicionamento SEO e plano de crescimento.
         </p>
+        <AdsenseInArticle />
         <h2 className="font-headline text-2xl font-semibold text-white mb-4">
           Checklist de configuração
         </h2>
